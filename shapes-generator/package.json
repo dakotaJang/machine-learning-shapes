@@ -1,7 +1,7 @@
 {
-  "name": "slides-data",
+  "name": "shapes-generator",
   "scripts": {
-    "prestart": "npm install || exit 0",
+    "prestart": "[ -d node_modules ] || npm install",
     "start": "polymer serve --hostname 0.0.0.0 --port 8081"
   },
   "dependencies": {
