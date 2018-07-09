@@ -41,7 +41,7 @@ cd shapes
 docker-compose up
 ```
 
-This will start 5 services.
+This will start 4 services.
 - shapes-generator
 - shapes-trainer
 - shapes-predictor
