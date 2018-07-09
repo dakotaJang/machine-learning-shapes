@@ -3,6 +3,8 @@ services:
   generator:
     container_name: shapes-generator
     image: dakotajang/polymer-cli
+    environment:
+      - NODE_ENV=development
     ports:
      - "8081:8081"
     volumes:
@@ -26,6 +28,8 @@ services:
   predictor:
     container_name: shapes-predictor
     image: node:latest
+    environment:
+      - NODE_ENV=development
     ports:
      - "8084:8080"
     volumes:
