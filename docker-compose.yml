@@ -1,0 +1,42 @@
+version: '3.6'
+services:
+  generator:
+    container_name: shapes-generator
+    image: dakotajang/polymer-cli
+    ports:
+     - "8081:8081"
+    volumes:
+      - ./shapes-generator:/shapes-generator
+    working_dir: /shapes-generator
+    command: npm start
+  trainer:
+    container_name: shapes-trainer
+    image: dakotajang/tensorflow
+    ports:
+     - "8082:8888"
+     - "8083:6006"
+    volumes:
+      - ./shapes-trainer:/shapes-trainer
+      - ./shapes-data:/shapes-data
+      - ./shapes-model:/shapes-model
+    stdin_open: true
+    tty: true
+    working_dir: /shapes-trainer
+    command: jupyter notebook --NotebookApp.token='' --allow-root
+  predictor:
+    container_name: shapes-predictor
+    image: node:latest
+    ports:
+     - "8084:8080"
+    volumes:
+      - ./shapes-predictor:/shapes-predictor
+    working_dir: /shapes-predictor
+    command: npm start
+  model:
+    container_name: shapes-model
+    image: nginx
+    ports:
+     - "8085:80"
+    volumes:
+      - ./shapes-model:/usr/share/nginx/html/shapes-model
+      - ./allow-cors:/etc/nginx/conf.d

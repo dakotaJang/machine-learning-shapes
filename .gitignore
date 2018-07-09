@@ -1,0 +1,12 @@
+# in root
+/shapes-data
+/shapes-model
+
+# npm
+node_modules
+build
+
+# python
+*.py[cod]
+
+.vscode
