@@ -7,15 +7,15 @@ declare global {
     loadModel: any;
     makePrediction: any;
     toggleLivePrediction: any;
+    labels: Array<string>;
   }
 }
 
 const CONV_MODEL_NUMBER_OF_LAYERS = 8;
-// const labels = ['Circle','Pentagon','Rectangle','Triangle'];
-const labels = ['3-gon', '4-gon', '5-gon', '6-gon', '7-gon', '8-gon', 'ellipse'];
+window.labels = [];
 let livePrediction = false;
 
-async function loadModel() {
+function loadModel() {
   const path = (document.getElementById("model-path") as HTMLInputElement).value;
   tf.loadModel(`http://localhost:8085/shapes-model/${path}/model.json`).then(
   model => {
@@ -30,12 +30,28 @@ async function loadModel() {
       (document.getElementById('loaded-model') as HTMLSpanElement).textContent = "Failed";
       console.log(err);
   });
+
+  loadLabels();
+}
+
+function loadLabels(){
+  const path = (document.getElementById("model-path") as HTMLInputElement).value;
+  let xhr = new XMLHttpRequest();
+  xhr.overrideMimeType("application/json");
+  xhr.open("GET", `http://localhost:8085/shapes-model/${path}/labels.json`, true);
+  xhr.onload = data => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        window.labels = JSON.parse(xhr.responseText).labels;
+      }
+  };
+  xhr.onerror = err => {console.log(err)};
+  xhr.send();
 }
 
 async function predict(model:tf.Model,example:tf.Tensor){
   const predictionTensor = model.predict(example) as tf.Tensor1D;
   const predictionIndex = (await predictionTensor.as1D().argMax().data())[0];
-  const prediction = labels[predictionIndex];
+  const prediction = window.labels[predictionIndex];
   return prediction;
 }
 
