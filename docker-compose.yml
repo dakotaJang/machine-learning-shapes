@@ -9,6 +9,7 @@ services:
      - "8081:8081"
     volumes:
       - ./shapes-generator:/shapes-generator
+      - /shapes-generator/node_modules
     working_dir: /shapes-generator
     command: npm start
   trainer:
@@ -27,13 +28,14 @@ services:
     command: jupyter notebook --NotebookApp.token='' --allow-root
   predictor:
     container_name: shapes-predictor
-    image: node:8.6.0
+    image: node:8.11.3
     environment:
       - NODE_ENV=development
     ports:
      - "8084:8080"
     volumes:
       - ./shapes-predictor:/shapes-predictor
+      - /shapes-predictor/node_modules
     working_dir: /shapes-predictor
     command: npm start
   model:
