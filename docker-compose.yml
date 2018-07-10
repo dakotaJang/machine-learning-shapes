@@ -27,7 +27,7 @@ services:
     command: jupyter notebook --NotebookApp.token='' --allow-root
   predictor:
     container_name: shapes-predictor
-    image: node:8.11.3
+    image: node:8.6.0
     environment:
       - NODE_ENV=development
     ports:
