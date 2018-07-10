@@ -113,7 +113,7 @@ def prepare_data(image_dir):
 
   labels = [x[1] for x in os.walk(image_dir)][0]
   print('labels:', labels)
-  return len(labels)
+  return labels
 
 def _unzip(source,image_dir):
   print('unzipping ' + source)
