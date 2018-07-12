@@ -160,5 +160,9 @@ Docker is more suited to work with linux environment. So using Docker on windows
     ```
     - This is probably because the Volume is not setup correctly. Maybe due to changed password. Rest credentials in Docker > Settings > Shared Drives
 
-### References
+### Resources
+Docker: https://www.docker.com
+Polymer: https://www.polymer-project.org
+Tensorflow: https://www.tensorflow.org
+TensorflowJS: https://js.tensorflow.org
 Docker Windows Volume Watcher: https://github.com/merofeev/docker-windows-volume-watcher
